@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body>
+
+    {% include 'navigation.html' %}
+
+    <div class="content">
+        <!-- <h1>Adminnnn</h1> -->
+
+        <button onclick="performHealthCheck()">Health Check</button>
+        <div id="resultContainer"></div>
+        <button onclick="uploadTitleBasics()">Upload Title Basics</button>
+        <input type="file" id="fileInputBasics" style="display: none;" accept=".tsv">
+        <button onclick="uploadTitleAkas()">Upload Title Akas</button>
+        <input type="file" id="fileInputAkas" style="display: none;" accept=".tsv">
+        <button onclick="uploadNameBasics()">Upload Name Basics</button>
+        <input type="file" id="fileInputNameBasics" style="display: none;" accept=".tsv">
+        <button onclick="uploadTitleCrew()">Upload Title Crew</button>
+        <input type="file" id="fileInputCrew" style="display: none;" accept=".tsv">
+        <button onclick="uploadTitleEpisode()">Upload Title Episode</button>
+        <input type="file" id="fileInputEpisode" style="display: none;" accept=".tsv">
+        <button onclick="uploadTitlePrinciples()">Upload Title Principals</button>
+        <input type="file" id="fileInputTitlePrinciples" style="display: none;" accept=".tsv">
+        <button onclick="uploadTitleRatings()">Upload Title Ratings</button>
+        <input type="file" id="fileInputRatings" style="display: none;" accept=".tsv">
+        <button onclick="resetAll()">Reset All</button>
+        <div id="resetButton"></div>
+        <button onclick="openUserModificationModal()">Add User or Change Password</button>
+        <!-- The modal for Add User/Change Password -->
+        <div id="userModificationModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeUserModificationModal()">&times;</span>
+                <form id="userModificationForm">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br>
+
+                    <button type="button" onclick="submitForm()">OK</button>
+                </form>
+            </div>
+        </div>
+        <button onclick="openUserInfoModal()">See user</button>
+        <div id="userInfoModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeUserInfoModal()">&times;</span>
+                <form id="userInfoForm">
+                    <label for="user">Username:</label>
+                    <input type="text" id="user" name="user" required><br>                
+                    <button type="button" onclick="getInfo()">OK</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</html>

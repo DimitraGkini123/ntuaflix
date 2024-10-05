@@ -1,0 +1,841 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    color: #fff;
+
+}
+
+
+.header {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(images/header-image.png);
+    background-size: cover;
+    background-position: center;
+    padding: 10px 8%;
+    position: relative;
+}
+
+.header2 {
+    width: 100%;
+    height: 100vh;
+    padding: 10px 8%;
+    position: relative;
+    z-index: 1;
+    /* Ensures that the content is above the pseudo-element */
+}
+
+.header2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(images/header-image.png);
+    background-size: cover;
+    opacity: 0.5;
+    /* Adjust the opacity as needed */
+    z-index: -1;
+    /* Positions the pseudo-element behind the content */
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.logo {
+    width: 150px;
+    cursor: pointer;
+}
+
+.signin_index button {
+    border: 0;
+    outline: 0;
+    background: #db0001;
+    color: #fff;
+    padding: 7px 20px;
+    font-size: 12px;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin-top: 100px;
+}
+
+.header-content h1 {
+    font-size: 60px;
+    line-height: 70px;
+    font-weight: 600;
+    max-width: 650px;
+}
+
+.header-content h3 {
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.email-signup {
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.email-signup input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    margin-left: 20px;
+}
+
+.email-signup button {
+    background: #db0001;
+    border: 0;
+    outline: 0;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 15px 30px;
+}
+
+.footer {
+    padding: 50px 15% 10px;
+    border-top: 6px solid #333;
+    color: #777;
+}
+
+.footer h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.form-wrapper {
+    position: absolute;
+    padding: 40px;
+    border-radius: 4px;
+    left: 50%;
+    top: 50%;
+    width: 60%;
+    max-width: 430px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.75);
+    transform: translate(-50%, -50%);
+
+}
+
+.form-wrapper h2 {
+    color: #fff;
+    font-size: 2rem;
+}
+
+.form-wrapper form {
+    margin: 25px 0 65px;
+}
+
+form .form-control {
+    position: relative;
+    height: 50px;
+    margin-bottom: 16px;
+}
+
+.form-control input {
+    height: 100%;
+    width: 100%;
+    background: #333;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 4px;
+    padding: 0 20px;
+}
+
+.form-control input:focus,
+.form-control input:valid {
+    padding: 16px 20px 0px;
+    background: #444;
+}
+
+.form-control label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    color: #8c8c8c;
+    pointer-events: none;
+    font-size: 1rem;
+    transform: translateY(-50%);
+    transition: all 0.1s ease;
+}
+
+.form-control input:focus~label,
+.form-control input:valid~label {
+    font-size: 0.75rem;
+    transform: translateY(-130%);
+}
+
+.Sign button {
+    width: 100%;
+    padding: 16px 0;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 4px;
+    background: #e50914;
+    margin: 25px 0 10px;
+    transition: 0.1s ease;
+}
+
+form button:hover {
+    background: #c40812;
+}
+
+form .form-help {
+    display: flex;
+    justify-content: space-between;
+}
+
+form .form-help :where(label, a) {
+    font-size: 0.9rem;
+}
+
+.form-wrapper :where(label, p, small, a) {
+    color: #b3b3b3;
+}
+
+.form-wrapper p a {
+    color: #fff;
+}
+
+.form-wrapper small {
+    display: block;
+    margin-top: 15px;
+}
+
+.form-wrapper a {
+    text-decoration: none;
+}
+
+.form-wrapper a:hover {
+    text-decoration: underline;
+}
+
+.row__poster {
+    width: 100%;
+    object-fit: contain;
+    max-height: 100px;
+    margin-right: 10px;
+    transition: transform 450ms;
+}
+
+._row__posters {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 20px;
+
+}
+
+.row__poster:hover {
+    transform: scale(1.08);
+
+}
+
+._row__posters::-webkit-scrollbar {
+    display: none;
+}
+
+.row__posterLarge {
+    max-height: 250px;
+}
+
+.row__posterLarge:hover {
+    transform: scale(1.09);
+}
+
+.row {
+    color: white;
+    margin-left: 20px;
+}
+
+.banner {
+    background-image: url('images/Air.jpg');
+    background-size: cover;
+    background-position: center center;
+    color: white;
+    object-fit: contain;
+    height: 500px;
+}
+
+.banner_contents {
+    margin-left: 30px;
+    padding-top: 140px;
+    height: 190px;
+}
+
+.banner_title {
+    font-size: 3rem;
+    font-weight: 800;
+    padding-bottom: 0.3rem;
+}
+
+.banner_description {
+    width: 45rem;
+    line-height: 1.3;
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    max-width: 360px;
+    height: 180px;
+}
+
+.banner_button {
+    cursor: pointer;
+    color: white;
+    outline: none;
+    border: none;
+    font-weight: 700;
+    border-radius: 0.2vw;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: rgba(51, 51, 51, 0.5);
+}
+
+.banner_button:hover {
+    color: #000;
+    background-color: #e6e6e6;
+    transition: all 0.2s;
+}
+
+.banner_fadeBottom {
+    margin-top: 145px;
+    height: 10.5rem;
+    background-image: linear-gradient(180deg, transparent, rgba(37, 37, 37, 0.61), #111);
+}
+
+.nav2 {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    /* background-color: #000; */
+    z-index: 1;
+    transition-timing-function: ease-in;
+    transition: all 0.5s;
+    /* background-color: #000; */
+}
+
+.nav2_black {
+    background-color: #111;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav2_avatar {
+    width: 30px;
+    object-fit: contain;
+    margin-right: 20px;
+    /* Add margin to create space between avatar and dropdown */
+}
+
+.dropdown_content {
+    display: none;
+    position: absolute;
+    background-color: #111;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+}
+
+.dropdown_content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown_content a:hover {
+    background-color: #555;
+}
+
+.dropdown:hover .dropdown_content {
+    display: block;
+}
+
+.nav2_logo_options {
+    display: flex;
+    align-items: center;
+}
+
+.nav2_option {
+    margin-left: 20px;
+    /* Adjust the padding */
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    /* Adjust the font size */
+}
+
+.nav2_option:hover {
+    color: #e50914;
+    transition: all 0.2s;
+}
+
+
+.nav2_avatar_search {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+.nav2_avatar_search:hover {
+    color: #e50914;
+    transition: all 0.2s;
+}
+
+.searchText {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.searchText p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.middle-search-input {
+    width: 300px;
+    height: 40px;
+    border: 2px solid red;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.middle-search-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.middle-search-button:hover {
+    background-color: darkred;
+}
+
+#resultsContainer {
+    margin: 0 auto;
+    /* This will center the container horizontally */
+    max-width: 50%;
+    margin-top: 80px;
+}
+
+/* Style for the "Download CSV" button */
+#downloadCSV {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#downloadCSV:hover {
+    background-color: darkred;
+}
+
+.searchResult {
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.row__poster {
+    width: 100px;
+    object-fit: contain;
+    max-height: 150px;
+    margin-right: 10px;
+}
+
+
+.movieTitleContainer {
+    text-align: flex-start;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 2em;
+}
+
+.movieTitleContainer h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    /* or another appropriate weight */
+}
+
+.bigContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* Align items to the right */
+}
+
+.mediumContainer {
+    display: flex;
+    flex-direction: column;
+    /* align-items: start; */
+    height: 390px;
+    width: 450px;
+    justify-content: space-between;
+}
+
+.smallContainer {
+    display: flex;
+    /* align-items: flex-start; Align items to the start */
+    justify-content: space-between;
+    /* margin-bottom: 20px;
+    height: calc(100% - 40px);  */
+}
+
+.row__poster2 {
+    width: 35%;
+    /* Larger poster */
+    object-fit: contain;
+    max-height: 100%;
+    margin-right: 20px;
+    flex-grow: 0;
+}
+
+.movieInfo {
+    flex-grow: 1;
+    /* Ensure it takes the remaining space */
+    color: white;
+    text-align: left;
+    overflow-y: auto;
+    /* Add scroll for overflow */
+    padding-right: 20px;
+    /* Padding for scrollbar */
+}
+
+.movieInfo2 {
+    flex-grow: 1;
+    /* Ensure it takes the remaining space */
+    color: white;
+    text-align: left;
+    font-size: 20px;
+    overflow-y: auto;
+    /* Add scroll for overflow */
+    padding-right: 20px;
+    /* Padding for scrollbar */
+    flex-grow: 2;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: center;
+    /* Center the buttons horizontally */
+    gap: 10px;
+    /* Add some space between the buttons */
+}
+
+.yourRatingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.ratingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Align items to the right */
+    flex-grow: 1;
+}
+
+.ratingContainer h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    /* or another appropriate weight */
+}
+
+.star-rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    color: #ccc;
+    /* Default star color */
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.star-rating input:checked~label {
+    color: gold;
+    /* Color for selected stars */
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: gold;
+    /* Color when hovering over a star */
+}
+
+
+.comment-box {
+    margin-top: 20px;
+    width: 270px;
+}
+
+#commentInput {
+    width: 100%;
+    height: 100px;
+    /* Adjust height as needed */
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    /* Allow vertical resizing */
+}
+
+#commentInput:focus {
+    outline: none;
+}
+
+#commentForm button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#commentForm button:hover {
+    background-color: #0056b3;
+}
+
+.likeButton {
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.likeButton.empty::before {
+    content: '\2661';
+    /* Unicode character for an empty heart */
+    color: white;
+    /* Set the color of an empty heart */
+}
+
+.likeButton.full::before {
+    content: '\2665';
+    /* Unicode character for a full heart */
+    color: red;
+    /* Set the color of a full heart */
+}
+
+.addToListButton {
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s, border 0.3s;
+    background: none;
+    border: 2px solid #666;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addToListButton.empty {
+    color: #fff;
+    /* Set the color of the plus icon when not added */
+    content: '+';
+    /* Plus icon when not added */
+}
+
+.addToListButton.added {
+    color: #e50914;
+    /* Set the color of the checkmark when added */
+    border-color: #e50914;
+    /* Set the border color when added */
+    content: '\2713';
+    /* Unicode character for a checkmark when added */
+}
+
+/* Styles for the modal */
+.modal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: relative; /* Ensure it's positioned relative to the modal */
+    margin: auto; /* Center the box */
+    padding: 20px; /* Add some padding inside the box */
+    border-radius: 10px; 
+    width: 30%; /* Or specify a fixed width */
+    background-color: rgba(23, 21, 21, 0.75); /* Slightly see-through white */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Adds a shadow for better visibility */
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+    color: #e5dede; /* Adjust the color to your preference */
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 20px;
+
+}
+/* Close button style */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    margin-top: 150px;
+    flex-direction: column;
+}
+
+.content button {
+    background-color: #e50914;
+    color: white;
+    font-size: 17px;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 300px;
+    border-radius: 10px; 
+    margin: 7px;
+}
+
+/* .reviewsContainer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+} */
+
+.review {
+   padding: 10px;
+   background-color: #f8f8f8eb;
+   margin-bottom: 20px;
+   border-radius: 10px; 
+}
+
+.review:last-child {
+    border-bottom: 5px; /* Remove bottom border for the last review */
+    background-color: #f8f8f8eb;
+    padding: 10px;
+}
+
+.reviewsContainer h3 {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #fffffff4; /* Dark grey color for contrast */
+    font-size: 18px; /* Slightly larger font for usernames */
+    font-family: 'Roboto', sans-serif;
+}
+
+.review h4 {
+    margin-top: 0;
+    color: #333; /* Dark grey color for contrast */
+    font-size: 18px; /* Slightly larger font for usernames */
+}
+
+.review p {
+    margin: 5px 0; /* Spacing for readability */
+    color: #666; /* Medium grey for text */
+}
+
+.nav2_avatar {
+    cursor: pointer
+}
+
+.nav2.scrolled {
+    background-color: #000; /* Or any color you prefer */
+}

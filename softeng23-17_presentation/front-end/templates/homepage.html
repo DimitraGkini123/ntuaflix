@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        function toggleSearchBar() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.style.transform = (searchBar.style.transform === 'scaleX(0)' || searchBar.style.transform === '') ? 'scaleX(1)' : 'scaleX(0)';
+        }
+
+        function closeSearchBar() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.style.transform = 'scaleX(0)';
+        }
+    </script>
+
+</head>
+
+<body>
+
+    {% include 'navigation.html' %}
+
+    <div class="banner">
+        <div class="banner_contents">
+            <h1 class="banner_title"> Air America </h1>
+            <div class="banner_buttons">
+                <button class="banner_button">More Info</button>
+                <script>
+                    $(document).ready(function () {
+                        $('.banner_button').on('click', function () {
+                            console.log('Clicked poster for movie: "Air America"');
+                            window.location.href = '/ntuaflix_api/info/99005';
+                        });
+                    });
+                </script>
+            </div>
+            <div class="banner_description">
+                A young pilot finds himself recruited unwittingly into a covert and corrupt CIA airlift operation in
+                Laos during the Vietnam conflict.
+            </div>
+        </div>
+        <div class="banner_fadeBottom">
+
+        </div>
+    </div>
+
+    <h2> TOP 10 </h2>
+    <div class="row">
+        <div id="topRatedContainer" class="_row__posters"></div>
+    </div>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Add this script to your homepage.html -->
+    <script>
+        $(document).ready(function () {
+            // Fetch top-rated movies data from your endpoint
+            $.get("/ntuaflix_api/topRated", function (data) {
+                // Check if data is available
+                if (data.length > 0) {
+                    // Iterate through the data and append images to a container
+                    var container = $("#topRatedContainer");  // Assuming you have a container with this ID
+
+                    data.forEach(function (movie) {
+                        // Create an image element and set its attributes
+                        var img = $("<img>").attr("src", movie.poster_url).attr("alt", "Movie Poster").css({"margin-right": "20px", "cursor": "pointer"}); 
+                        
+                        img.on('click', function () {
+                            console.log(`Clicked poster for movie: ${movie.originalTitle}`);
+                            window.location.href = `/ntuaflix_api/info/${movie.ID}`;
+                        });
+
+                        // Append the image to the container
+                        container.append(img);
+                    });
+                } else {
+                    // Handle the case when no movies are found
+                    console.log("No movies found");
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const nav2 = document.getElementById('nav2');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY >= 100) {
+                nav2.classList.add('nav2_black');
+            } else {
+                nav2.classList.remove('nav2_black');
+            }
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>

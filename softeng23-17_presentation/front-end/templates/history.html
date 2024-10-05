@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body>
+    {% include 'navigation.html' %}
+
+    <div id="resultsContainer" class="ratedMovieResults"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Call the function to fetch and display movies when the page loads
+            fetchMoviesRatings();
+
+            // Define download button and results container inside the DOMContentLoaded event
+            const resultsContainer = document.getElementById('resultsContainer');
+
+            // Function to fetch and display movies
+            async function fetchMoviesRatings() {
+                try {
+                    // Fetch movies from the /list_for_watching_later endpoint
+                    const response = await fetch('/ntuaflix_api/check_myratingslist');
+                    const data_ratings = await response.json();
+
+                    if (data_ratings && data_ratings.length > 0) {
+                        displaySearchResults(data_ratings, resultsContainer);
+                        // Show the download button
+                        downloadButton.style.display = 'inline-block';
+                    } else {
+                        // No movies rated yet
+                        displayNoResultsMessageRatings(resultsContainer);
+                    }
+                } catch (error) {
+                    console.error('Error fetching movies:', error);
+                }
+            }
+
+            // Function to display a message when there are no results
+            async function displayNoResultsMessageRatings(container) {
+                const message = document.createElement('div');
+                message.innerHTML = "You have not rated any of your movies. Go to Homepage and rate some movies.";
+                message.style.textAlign = 'center';
+                message.style.marginTop = '30%';
+
+                const watchlistButton = document.createElement('button');
+                watchlistButton.innerHTML = "Go to Homepage";
+                watchlistButton.style.backgroundColor = 'red';
+                watchlistButton.style.color = 'white';
+                watchlistButton.style.width = '17%';
+                watchlistButton.style.marginTop = '3%';
+                
+                watchlistButton.addEventListener('click', function () {
+                    // Add the logic to navigate to the watchlist page
+                    window.location.href = '/ntuaflix_api/homepage.html';
+                });
+
+                container.style.display = 'flex';
+                container.style.flexDirection = 'column';
+                container.style.alignItems = 'center'; // Center items vertically
+                container.style.justifyContent = 'center'; // Center items horizontally
+
+                container.appendChild(message);
+                container.appendChild(watchlistButton);
+            }
+
+            // Define download button after displaying the message
+
+        });
+    </script>
+    <script src="{{ url_for('static', filename='likesfunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='mylistfunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='displayresults.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body>
+    {% include 'navigation.html' %}
+
+    <div class="searchText">
+        <p>Search Principals</p>
+    </div>
+
+    <form action="{{ url_for('search_name') }}" method="GET">
+        <div class="searchBar">
+            <input type="text" placeholder="Name..." class="middle-search-input" name="titlePart">
+            <button type="submit" class="middle-search-button">Search</button>
+        </div>
+    </form>
+    
+    <div id="resultsContainer" class="nameResults"></div>
+
+    <!-- Button to trigger CSV download (initially hidden) -->
+    <button id="downloadCSV" style="display: none;">Download CSV</button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchButton = document.querySelector('.middle-search-button');
+            const searchInput = document.querySelector('.middle-search-input');
+            const downloadButton = document.getElementById('downloadCSV');
+            const resultsContainer = document.getElementById('resultsContainer');
+
+            searchButton.addEventListener('click', function () {
+                event.preventDefault();
+                const namePart = searchInput.value.trim();
+
+                const url = `/ntuaflix_api/searchname?namePart=${namePart}&format=json`;
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        displayprincipals(data, resultsContainer);
+                        // Show the download button
+                        downloadButton.style.display = 'inline-block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
+            });
+
+            // Function to trigger CSV download
+            downloadButton.addEventListener('click', function () {
+                const namePart = searchInput.value.trim();
+                const url = `/ntuaflix_api/searchname?namePart=${namePart}&format=csv`;
+                
+                fetch(url)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        // Create a temporary URL for the blob
+                        const blobURL = window.URL.createObjectURL(blob);
+                        
+                        // Create a link element
+                        const a = document.createElement('a');
+                        a.href = blobURL;
+                        a.download = 'principals.csv';
+                        
+                        // Append the link to the body and trigger the click event
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        // Clean up by removing the link and revoking the object URL
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(blobURL);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='displayprincipals.js') }}"></script>
+</body>
+
+</html>

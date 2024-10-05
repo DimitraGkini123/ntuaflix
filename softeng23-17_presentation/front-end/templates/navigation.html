@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            
+            function logout() {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url_for("logout") }}',
+                    success: function (response) {
+                        window.location.href = 'signin.html';
+                    },
+                    error: function (error) {
+                        console.error('Logout failed:', error.responseText);
+                    }
+                });
+            }
+
+            $(document).on('click', '.nav2_option_logout', function () {
+                logout();
+            });
+
+        });
+
+   
+
+    
+$(document).ready(function() {
+    $(window).scroll(function() {
+        // Check if page is scrolled more than 50 pixels
+        if ($(this).scrollTop() > 50) {
+            $('.nav2').addClass('scrolled');
+        } else {
+            $('.nav2').removeClass('scrolled');
+        }
+    });
+});
+
+    </script>
+   
+
+</head>
+
+<body>
+    <div class="nav2" id="nav2">
+
+        <div class="nav2_logo_options">
+            <a href="{{ url_for('homepage') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+            </a>
+            <a href="{{ url_for('my_list') }}" class="nav2_option">My List</a>
+            <a href="{{ url_for('homepage') }}" class="nav2_option">Home</a>
+            <a href="{{ url_for('search_title') }}" class="nav2_option">Search By Title</a>
+            <a href="{{ url_for('search_genre') }}" class="nav2_option">Search By Genre</a>
+            <a href="{{ url_for('search_name') }}" class="nav2_option">Search Principals</a>
+            {% if session['is_admin'] == 1 %}
+            <a href="{{ url_for('admin_check') }}" class="nav2_option">Admin's Check</a>
+            {% endif %}
+
+        </div>
+
+        <div class="nav2_avatar_search">
+            <div class="dropdown">
+                <img src="{{ url_for('static', filename='images/avatar.png') }}" alt="" class="nav2_avatar">
+                <div class="dropdown_content">
+                    <a href="{{ url_for('my_likes') }}" class="nav2_option">Likes</a>
+                    <a href="{{ url_for('my_history') }}" class="nav2_option">History</a>
+                    <a href="javascript:void(0);" class="nav2_option nav2_option_logout">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

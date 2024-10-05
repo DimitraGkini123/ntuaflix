@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Kostis Spyridonos">
+    <title>Ntuaflix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+       function navigateToPage() {
+            window.location.href = "{{ url_for('index') }}"; // Sets the current window's location to the specified URL
+        }
+    </script>
+</head>
+<body>
+<div class="header">
+    <nav>
+        <img src = "\static\images\logo.png" class = "logo" onclick="navigateToPage()">
+        <form class="signin_index" action="{{ url_for('signin') }}" method="get">
+            <button type="submit">Sign In</button>
+        </form>
+    </nav>
+    <div class = "header-content">
+        <h1>Reviewing flicks with Ntuaflix, Your real deal for film picks!</h1>
+        <h3>Review Anywhere. Explore Anytime.</h3>
+        <p>Ready to Explore?</p>
+        <form class="email-signup">
+            <input type="text" id="username" placeholder="Username" required>
+            <button type="button" onclick="saveData()">Get Started</button>
+        </form>
+        <script>
+            function saveData() {
+                var username = document.getElementById('username').value;
+                localStorage.setItem('username', username);
+        
+                // Redirect to signup.html
+                window.location.href = 'signup.html';
+            }
+        </script>
+        
+    </div>
+</div>    
+<div class = "footer">
+    <h2>Questions? Call +30-693-067-2704</h2>
+</div>
+</body>
+</html>

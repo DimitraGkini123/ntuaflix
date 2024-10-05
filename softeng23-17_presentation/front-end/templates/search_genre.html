@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body>
+    {% include 'navigation.html' %}
+
+    <div class="searchText">
+        <p>Search By Genre</p>
+    </div>
+
+    <form action="{{ url_for('search_genre') }}" method="GET" class="searchBar">
+        <input type="text" id="genre" placeholder="Genre" class="middle-search-input" name="genre">
+        <input type="text" id="minRating" placeholder="Minimum Rating" class="middle-search-input" name="minRating">
+        <input type="text" id="yearFrom" placeholder="Year From" class="middle-search-input" name="yearFrom">
+        <input type="text" id="yearTo" placeholder="Year To" class="middle-search-input" name="yearTo">
+        <button type="submit" class="middle-search-button">Search</button>
+    </form>
+
+    <div id="resultsContainer" class="movieResults"></div>
+    <!-- Button to trigger CSV download (initially hidden) -->
+    <button id="downloadCSV" style="display: none;">Download CSV</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchButton = document.querySelector('.middle-search-button');
+            const genreInput = document.querySelector('input[name="genre"]');
+            const minRatingInput = document.querySelector('input[name="minRating"]');
+            const yearFromInput = document.querySelector('input[name="yearFrom"]');
+            const yearToInput = document.querySelector('input[name="yearTo"]');
+            const downloadButton = document.getElementById('downloadCSV');
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            let genre, minRating, yearFrom, yearTo;
+
+            searchButton.addEventListener('click', function (event) {
+                event.preventDefault(); // display the results in the same page
+
+                // Get values from form inputs
+                genre = genreInput.value.trim();
+                minRating = minRatingInput.value.trim();
+                // Check if mandatory fields are filled
+                if (!genre || !minRating) {
+                    alert('Please fill in Genre and Minimum Rating fields.');
+                    return;
+                }
+                yearFrom = yearFromInput.value.trim();
+                yearTo = yearToInput.value.trim();
+
+                // Create a URL with the form parameters
+                const url = `/ntuaflix_api/bygenre?qgenre=${genre}&minrating=${minRating}&yrFrom=${yearFrom}&yrTo=${yearTo}&format=json`;
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        displaySearchResults(data, resultsContainer);
+                        // Show the download button
+                        downloadButton.style.display = 'inline-block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+            // Function to trigger CSV download
+            downloadButton.addEventListener('click', function () {
+                const downloadUrl = `/ntuaflix_api/bygenre?qgenre=${genre}&minrating=${minRating}&yrFrom=${yearFrom}&yrTo=${yearTo}&format=csv`;
+                
+                fetch(downloadUrl)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        // Create a temporary URL for the blob
+                        const blobURL = window.URL.createObjectURL(blob);
+                        
+                        // Create a link element
+                        const a = document.createElement('a');
+                        a.href = blobURL;
+                        a.download = 'titles.csv';
+                        
+                        // Append the link to the body and trigger the click event
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        // Clean up by removing the link and revoking the object URL
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(blobURL);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>    
+    <script src="{{ url_for('static', filename='likesfunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='mylistfunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='displayresults.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Kostis Spyridonos">
+    <title>Ntuaflix</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function navigateToPage() {
+             window.location.href = "{{ url_for('index') }}"; // Sets the current window's location to the specified URL
+         }
+     </script>
+</head>
+<body>
+<div class="header2">
+    <nav> 
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" onclick="navigateToPage()">
+    </nav>
+    <div class="form-wrapper">
+        <h2>Sign Up</h2>
+        <form class="Sign" action="{{ url_for('signupform') }}" method="post">
+            <div class="form-control">
+                <input type="text" name="username" id="signupUsername" required>
+                <label>Username</label>               
+            </div>
+            <script>
+                window.onload = function() {
+                    var username = localStorage.getItem('username');
+                    if (username) {
+                        document.getElementById('signupUsername').value = username;
+                    }
+                }
+            </script>
+            <div class="form-control">
+                <input type="password" name="password" required>
+                <label>Password</label>             
+            </div>
+            <div class="form-control">
+                <input type="password" name="confirm_password" required>
+                <label>Confirm Password</label>             
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{{ url_for('signin') }}">Sign In now</a></p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body>
+    {% include 'navigation.html' %}
+
+    <div id="resultsContainer" class="movieResults"></div>
+
+    <!-- Button to trigger CSV download (initially hidden) -->
+    <button id="downloadCSV" style="display: none;">Download CSV</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Call the function to fetch and display movies when the page loads
+            fetchMovies();
+            
+            // Define download button and results container inside the DOMContentLoaded event
+            const downloadButton = document.getElementById('downloadCSV');
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            // Function to fetch and display movies
+            function fetchMovies() {
+                // Fetch movies from the /list_for_watching_later endpoint
+                fetch('/ntuaflix_api/list_for_watching_later?format=json', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        displaySearchResults(data, resultsContainer);
+                        // Show the download button
+                        downloadButton.style.display = 'inline-block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+            
+            // Event listener for the download button
+            downloadButton.addEventListener('click', function () {
+                const url = '/ntuaflix_api/list_for_watching_later?format=csv';
+                
+                fetch(url)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        // Create a temporary URL for the blob
+                        const blobURL = window.URL.createObjectURL(blob);
+                        
+                        // Create a link element
+                        const a = document.createElement('a');
+                        a.href = blobURL;
+                        a.download = 'list.csv';
+                        
+                        // Append the link to the body and trigger the click event
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        // Clean up by removing the link and revoking the object URL
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(blobURL);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='likesfunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='mylistfunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='displayresults.js') }}"></script>
+</body>
+
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{% include 'head.html' %}
+
+<body>
+    {% include 'navigation.html' %}
+    <div id="resultsContainer" class="movieResults" data-titleID="{{ title_ID }}"></div>
+</body>
+
+<script src="{{ url_for('static', filename='displaymovieinfo.js') }}"></script>
+<script src="{{ url_for('static', filename='likesfunctions.js') }}"></script>
+<script src="{{ url_for('static', filename='mylistfunctions.js') }}"></script>
+<script>
+    const resultsContainer = document.getElementById('resultsContainer');
+    const titleID = resultsContainer.getAttribute('data-titleID');
+    console.log('titleID:', titleID);
+
+    fetch(`/ntuaflix_api/movie_info/${titleID}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            console.log('Received response:', response);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Received data:', data);
+
+            if (data) {
+                console.log('Movie details:', data);
+                displayMovieResults(data, resultsContainer);
+            } else {
+                console.log('No movie found.');
+                resultsContainer.innerHTML = '<p>No movie found.</p>';
+            }
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+
+
+</html>
